@@ -6,16 +6,22 @@ import type { CardData, CurrentRotatedCards } from '../Game/Game';
 export default function Board({
   cards,
   currentRotatedCards,
-  onCardClick
+  onCardClick,
+  boardSize
 }: {
   cards: CardData[];
   currentRotatedCards: CurrentRotatedCards;
   onCardClick: (data: CardData) => void;
+  boardSize: number;
 }) {
-  console.log('currentRotatedCards', currentRotatedCards);
   return (
     <>
-      <BoardContainer>
+      <BoardContainer
+        style={{
+          // @ts-expect-error custom property
+          '--boardSize': boardSize
+        }}
+      >
         {cards.map(card => (
           <Card
             key={card.id}

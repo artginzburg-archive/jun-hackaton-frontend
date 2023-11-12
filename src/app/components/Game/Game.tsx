@@ -62,15 +62,14 @@ export type CurrentRotatedCards = {
 };
 
 export default function Game() {
-  const [cardCount, setCardCount] = useState(25);
+  const [boardSize, setBoardSize] = useState(4);
+  const cardCount = boardSize ** 2;
 
   const [currentMoveCount, setCurrentMoveCount] = useState(0);
   const [currentRotatedCards, setCurrentRotatedCards] =
     useState<CurrentRotatedCards>({});
 
   const [currentCards, setCurrentCards] = useState(generateCards(cardCount));
-
-  console.log('currentCards', currentCards);
 
   function onCardClick(card: CardData) {
     if (currentRotatedCards.first) {
@@ -91,6 +90,7 @@ export default function Game() {
       cards={currentCards}
       currentRotatedCards={currentRotatedCards}
       onCardClick={onCardClick}
+      boardSize={boardSize}
     />
   );
 }

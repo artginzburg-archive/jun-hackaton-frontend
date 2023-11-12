@@ -26,5 +26,5 @@ export const BoardContainer = styled.div`
   //   border: 1px solid rgba(var(--card-border-rgb), 0.15);
   // }
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(var(--boardSize), 1fr);
 `;
