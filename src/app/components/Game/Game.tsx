@@ -1,6 +1,7 @@
 'use client';
 import Board from '../Board/Board';
 import { useState } from 'react';
+import ButtonsBlock from '../ButtonsBlock/ButtonsBlock';
 import { GameContainer } from './Game.styled';
 
 export type CardData = {
@@ -82,12 +83,20 @@ export default function Game() {
   }
 
   function win() {}
-  function restart() {}
+  function restart() {
+    setCurrentMoveCount(0);
+    setCurrentRotatedCards({});
+    setCurrentCards(generateCards(cardCount));
+  }
   // function lose() {
   //   // кажется lose пока не бывает :)
   // }
   return (
     <GameContainer>
+      <ButtonsBlock
+        restartClick={restart}
+        currentMoveCount={currentMoveCount}
+      />
       <Board
         cards={currentCards}
         currentRotatedCards={currentRotatedCards}
