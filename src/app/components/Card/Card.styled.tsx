@@ -2,7 +2,11 @@ import { styled } from '@linaria/react';
 import { CardBack } from '../CardBack/CardBack.styled';
 import { CardFront } from '../CardFront/CardFront.styled';
 
-export const CardContainer = styled.div<{ 'data-rotated'?: boolean }>`
+export const CardContainer = styled.div<{
+  'data-rotated'?: boolean;
+  'data-success'?: boolean;
+  'data-error'?: boolean;
+}>`
   position: relative;
   /* display: flex; */
   align-items: center;
@@ -32,6 +36,31 @@ export const CardContainer = styled.div<{ 'data-rotated'?: boolean }>`
       transform: perspective(600px) rotateY(0deg);
     }
   }
-  &[match='true'] {
+
+  @keyframes animateCard {
+    0% {
+      transform: translateX(0);
+    }
+    50% {
+      transform: translateX(0.5rem);
+    }
+    70% {
+      transform: translateX(-0.5rem);
+    }
+    100% {
+      transform: translateX(0);
+    }
+  }
+
+  &[data-success='true'] {
+    ${CardBack} {
+      background: #45a148;
+    }
+  }
+  &[data-error='true'] {
+    ${CardBack} {
+      background: #fa0f2a;
+      /* animation: animateCard 2s infinite; */
+    }
   }
 `;

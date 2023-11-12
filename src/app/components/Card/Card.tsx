@@ -17,7 +17,12 @@ export default function Card({
   error: boolean;
 }) {
   return (
-    <CardContainer data-rotated={rotated} onClick={() => onClick(data)}>
+    <CardContainer
+      data-rotated={rotated}
+      data-success={success}
+      data-error={error}
+      onClick={() => onClick(data)}
+    >
       <CardFront />
       <CardBack>{data.image}</CardBack>
     </CardContainer>
