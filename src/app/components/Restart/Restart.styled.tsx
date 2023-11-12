@@ -9,7 +9,6 @@ export const RestartContainer = styled.div`
   padding: 5px;
   transition: 0.3s;
   &:hover {
-    background-color: #ffdca1;
     transform: rotate(180deg);
   }
 `;

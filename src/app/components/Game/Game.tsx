@@ -119,7 +119,7 @@ export default function Game() {
   }
 
   if (hasWon) {
-    return <EndGame />;
+    return <EndGame restart={restart} />;
   }
 
   return (
