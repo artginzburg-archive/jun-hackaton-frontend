@@ -28,15 +28,20 @@ export default function Board({
             data={card}
             rotated={
               currentRotatedCards.first?.index === card.index ||
-              currentRotatedCards.second?.index === card.index
+              currentRotatedCards.second?.index === card.index ||
+              !!card.guessed
             }
             success={
               currentRotatedCards.first !== undefined &&
-              currentRotatedCards.first.id === currentRotatedCards.second?.id
+              currentRotatedCards.first.id === currentRotatedCards.second?.id &&
+              currentRotatedCards.first.id === card.id
             }
             error={
               currentRotatedCards.first !== undefined &&
-              currentRotatedCards.first.id !== currentRotatedCards.second?.id
+              currentRotatedCards.second !== undefined &&
+              currentRotatedCards.first.id !== currentRotatedCards.second.id &&
+              (currentRotatedCards.first.index === card.index ||
+                currentRotatedCards.second.index === card.index)
             }
             onClick={onCardClick}
           />

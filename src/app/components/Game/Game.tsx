@@ -75,12 +75,28 @@ export default function Game() {
   const [currentCards, setCurrentCards] = useState(generateCards(cardCount));
 
   function onCardClick(card: CardData) {
+    if (card.index === currentRotatedCards.first?.index) return;
+
     if (currentRotatedCards.first) {
-      setCurrentRotatedCards(prev => ({ ...prev, second: card }));
+      setCurrentRotatedCards({ ...currentRotatedCards, second: card });
+
       setCurrentMoveCount(prev => prev + 1);
+
+      if (card.id === currentRotatedCards.first.id) {
+        // Совпадение!
+        setCurrentCards(prev =>
+          prev.map(c => (c.id === card.id ? { ...c, guessed: true } : c))
+        );
+      }
+
+      setTimeout(() => {
+        setCurrentRotatedCards({});
+      }, 500);
+
       return;
     }
-    setCurrentRotatedCards(prev => ({ ...prev, first: card }));
+
+    setCurrentRotatedCards({ ...currentRotatedCards, first: card });
   }
 
   function win() {}

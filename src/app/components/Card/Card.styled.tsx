@@ -37,15 +37,30 @@ export const CardContainer = styled.div<{
     }
   }
 
-  @keyframes animateCard {
+  @keyframes animateCardYes {
+    0% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(0.5rem);
+    }
+    70% {
+      transform: translateY(-0.5rem);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes animateCardNo {
     0% {
       transform: translateX(0);
     }
     50% {
-      transform: translateX(0.5rem);
+      transform: translateX(0.5rem) skewX(10deg);
     }
     70% {
-      transform: translateX(-0.5rem);
+      transform: translateX(-0.5rem) skewX(-10deg);
     }
     100% {
       transform: translateX(0);
@@ -55,12 +70,13 @@ export const CardContainer = styled.div<{
   &[data-success='true'] {
     ${CardBack} {
       background: #45a148;
+      animation: animateCardYes 2s infinite;
     }
   }
   &[data-error='true'] {
     ${CardBack} {
       background: #fa0f2a;
-      /* animation: animateCard 2s infinite; */
+      animation: animateCardNo 2s infinite;
     }
   }
 `;
