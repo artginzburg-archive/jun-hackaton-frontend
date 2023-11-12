@@ -13,7 +13,7 @@ export const CardBack = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: rgba(255, 99, 71, 0.5);
+  background-color: #fff;
   color: white;
   border-radius: 20%;
   transition: 0.3s;

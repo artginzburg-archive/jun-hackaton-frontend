@@ -11,6 +11,7 @@ export type CardData = {
   id: number;
   image: string;
   index: number;
+  isCloned: boolean;
 };
 
 function generateCards(cardCount: number): CardData[] {
@@ -20,24 +21,24 @@ function generateCards(cardCount: number): CardData[] {
 }
 
 const potentialContent = [
-  'X',
-  'Y',
-  'Z',
-  'A',
-  'B',
-  'C',
-  'K',
-  'H',
-  '1',
-  '2',
-  '3',
-  '4',
-  '5',
-  '6',
-  '7',
-  '10',
-  'hi',
-  'love'
+  '#477817',
+  '#3546e5',
+  '#a8e38d',
+  '#fc60d0',
+  '#f0bf46',
+  '#45a5ff',
+  '#f77463',
+  '#ab2aad',
+  '#97b584',
+  '#6beded',
+  '#24e04d',
+  '#310c96',
+  '#073d06',
+  '#ffb36b',
+  '#10427a',
+  '#f571e8',
+  '#134dbf',
+  '#4b48f0'
 ];
 
 function shuffleArray<T>(arr: T[]): T[] {
@@ -49,8 +50,11 @@ function shuffleAndGetContentArr(count: number) {
     ...potentialContent
   ])
     .slice(0, count / 2)
-    .map((contentEl, id) => ({ image: contentEl, id }));
-  return shuffleArray([...shuffled, ...shuffled]);
+    .map((contentEl, id) => ({ image: contentEl, id, isCloned: false }));
+  return shuffleArray([
+    ...shuffled,
+    ...shuffled.map(data => ({ ...data, isCloned: true }))
+  ]);
 }
 
 export type CurrentRotatedCards = {

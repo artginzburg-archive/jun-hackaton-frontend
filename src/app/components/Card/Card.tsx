@@ -2,6 +2,7 @@ import { CardContainer } from './Card.styled';
 import { CardBack } from '../CardBack/CardBack.styled';
 import { CardFront } from '../CardFront/CardFront.styled';
 import { CardData } from '../Game/Game';
+import { FaChildReaching, FaPeopleRoof } from 'react-icons/fa6';
 
 export default function Card({
   data,
@@ -24,7 +25,14 @@ export default function Card({
       onClick={() => onClick(data)}
     >
       <CardFront />
-      <CardBack>{data.image}</CardBack>
+      <CardBack>
+        {data.isCloned ? (
+          <FaChildReaching size={'50%'} color={data.image} />
+        ) : (
+          <FaPeopleRoof size={'50%'} color={data.image} />
+        )}
+        <div style={{ opacity: 0, width: 0, height: 0 }}>{data.image}</div>
+      </CardBack>
     </CardContainer>
   );
 }

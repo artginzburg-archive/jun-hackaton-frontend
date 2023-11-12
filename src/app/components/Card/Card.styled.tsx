@@ -31,7 +31,6 @@ export const CardContainer = styled.div<{
     }
 
     ${CardBack} {
-      background: rgba(255, 99, 71, 1);
       box-shadow: 5px 8px 15px 10px rgba(234, 187, 122, 0.2);
       transform: perspective(600px) rotateY(0deg);
     }
@@ -75,7 +74,7 @@ export const CardContainer = styled.div<{
   }
   &[data-error='true'] {
     ${CardBack} {
-      background: #fa0f2a;
+      background: #ff6347;
       animation: animateCardNo 2s infinite;
     }
   }
