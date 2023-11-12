@@ -7,7 +7,7 @@ export const EndGameContainer = styled.div`
   justify-content: center;
   background-color: #ccffe0;
   flex-direction: column;
-  width: 300px;
+  width: 350px;
   max-width: 70vw;
   aspect-ratio: 2 / 1;
   border-radius: 1%;
