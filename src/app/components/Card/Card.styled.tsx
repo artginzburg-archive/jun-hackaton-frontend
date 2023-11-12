@@ -74,7 +74,7 @@ export const CardContainer = styled.div<{
   }
   &[data-error='true'] {
     ${CardBack} {
-      background: #ff6347;
+      background: #ff8a97;
       animation: animateCardNo 2s infinite;
     }
   }
