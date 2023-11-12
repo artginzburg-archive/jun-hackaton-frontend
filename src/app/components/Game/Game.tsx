@@ -3,6 +3,7 @@ import Board from '../Board/Board';
 import { useState } from 'react';
 import ButtonsBlock from '../ButtonsBlock/ButtonsBlock';
 import { GameContainer } from './Game.styled';
+import EndGame from '../EndGame/EndGame';
 
 export type CardData = {
   /** a.k.a. rotated */
@@ -12,15 +13,12 @@ export type CardData = {
   index: number;
 };
 
-// функция, которая из массива перемешанного и обрезанного контента делает массив CardData (по сути просто arr.map())
 function generateCards(cardCount: number): CardData[] {
   const contentArr = shuffleAndGetContentArr(cardCount);
-  // А здесь получается маппим, делаем {image: contentEl, id: }; id походу тут каунтер просто делаем, по умолчанию 0, в конце каждого мэпа +1
 
   return contentArr.map((data, index) => ({ ...data, index }));
 }
 
-// массив с потенциальным контентом
 const potentialContent = [
   'X',
   'Y',
@@ -42,13 +40,9 @@ const potentialContent = [
   'love'
 ];
 
-/** T — это дженерик, это как у функций есть параметры, у типов дженерики */
 function shuffleArray<T>(arr: T[]): T[] {
-  // копирует массив, сортирует рандомно (Math.random() даёт от 0 до 1, поэтому если отнять 0.5 — будет от -0.5 до +0.5)
   return [...arr].sort(() => Math.random() - 0.5);
 }
-
-// функция, которая принимает в себя кол-во карточек X как цифру, копирует весь массив с потенциальным контентом, перемешивает его через функцию а-ля shuffleArray, и возвращает первые X карточек из перемешанного массива
 
 function shuffleAndGetContentArr(count: number) {
   const shuffled: Omit<CardData, 'index'>[] = shuffleArray([
@@ -71,10 +65,12 @@ export default function Game() {
   const [currentMoveCount, setCurrentMoveCount] = useState(0);
   const [currentRotatedCards, setCurrentRotatedCards] =
     useState<CurrentRotatedCards>({});
+  const [hasWon, setHasWon] = useState(false);
 
   const [currentCards, setCurrentCards] = useState(generateCards(cardCount));
 
   function onCardClick(card: CardData) {
+    if (card.guessed) return;
     if (isAnimating === true) return;
     if (card.index === currentRotatedCards.first?.index) return;
 
@@ -85,9 +81,14 @@ export default function Game() {
 
       if (card.id === currentRotatedCards.first.id) {
         // Совпадение!
-        setCurrentCards(prev =>
-          prev.map(c => (c.id === card.id ? { ...c, guessed: true } : c))
+        const newCurrentCards = currentCards.map(c =>
+          c.id === card.id ? { ...c, guessed: true } : c
         );
+        setCurrentCards(newCurrentCards);
+
+        if (newCurrentCards.every(card => card.guessed)) {
+          win();
+        }
       }
 
       setAnimating(true);
@@ -103,15 +104,19 @@ export default function Game() {
     setCurrentRotatedCards({ ...currentRotatedCards, first: card });
   }
 
-  function win() {}
+  function win() {
+    setHasWon(true);
+  }
   function restart() {
     setCurrentMoveCount(0);
     setCurrentRotatedCards({});
     setCurrentCards(generateCards(cardCount));
+    setHasWon(false);
   }
-  // function lose() {
-  //   // кажется lose пока не бывает :)
-  // }
+
+  if (hasWon) {
+    return <EndGame />;
+  }
 
   return (
     <GameContainer>
