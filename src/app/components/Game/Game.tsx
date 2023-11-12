@@ -1,6 +1,7 @@
 'use client';
 import Board from '../Board/Board';
 import { useState } from 'react';
+import { GameContainer } from './Game.styled';
 
 export type CardData = {
   /** a.k.a. rotated */
@@ -86,11 +87,13 @@ export default function Game() {
   //   // кажется lose пока не бывает :)
   // }
   return (
-    <Board
-      cards={currentCards}
-      currentRotatedCards={currentRotatedCards}
-      onCardClick={onCardClick}
-      boardSize={boardSize}
-    />
+    <GameContainer>
+      <Board
+        cards={currentCards}
+        currentRotatedCards={currentRotatedCards}
+        onCardClick={onCardClick}
+        boardSize={boardSize}
+      />
+    </GameContainer>
   );
 }
