@@ -8,7 +8,7 @@ const transitionDurationDefault = '200ms';
 export const Main = styled.main`
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   /* padding: 6rem; */
   min-height: 100vh;
