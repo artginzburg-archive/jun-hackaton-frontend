@@ -10,23 +10,16 @@ export const Main = styled.main`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  padding: 6rem;
+  /* padding: 6rem; */
   min-height: 100vh;
 `;
 
 export const Heading1 = styled.h1`
   font-weight: 600;
   margin-bottom: 0.8rem;
-  color: #fa650f;
-  font-size: 2rem;
-  text-shadow: 2px 2px 2px #ce5937;
+  color: #ff6347;
+  font-size: calc(1.5rem + 6 * (100vw - 320px) / 880);
 `;
-/*export const Heading2 = styled.h2`
-  font-weight: 600;
-  margin-bottom: 0.7rem;
-  border-bottom: 1px solid #000;
-  color: #ed9561;
-`;*/
 
 export const Center = styled.div`
   display: flex;
