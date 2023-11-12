@@ -9,18 +9,15 @@ export type CardData = {
   guessed?: boolean;
   id: number;
   image: string;
+  index: number;
 };
 
 // функция, которая из массива перемешанного и обрезанного контента делает массив CardData (по сути просто arr.map())
 function generateCards(cardCount: number): CardData[] {
   const contentArr = shuffleAndGetContentArr(cardCount);
   // А здесь получается маппим, делаем {image: contentEl, id: }; id походу тут каунтер просто делаем, по умолчанию 0, в конце каждого мэпа +1
-  let counter = 0;
 
-  return contentArr.map(contentEl => ({
-    image: contentEl,
-    id: counter++
-  }));
+  return contentArr.map((data, index) => ({ ...data, index }));
 }
 
 // массив с потенциальным контентом
@@ -43,7 +40,7 @@ const potentialContent = [
   '10',
   'hi',
   'love'
-]; // ну вот контент
+];
 
 /** T — это дженерик, это как у функций есть параметры, у типов дженерики */
 function shuffleArray<T>(arr: T[]): T[] {
@@ -54,13 +51,17 @@ function shuffleArray<T>(arr: T[]): T[] {
 // функция, которая принимает в себя кол-во карточек X как цифру, копирует весь массив с потенциальным контентом, перемешивает его через функцию а-ля shuffleArray, и возвращает первые X карточек из перемешанного массива
 
 function shuffleAndGetContentArr(count: number) {
-  const shuffled = shuffleArray([...potentialContent]).slice(0, count / 2);
+  const shuffled: Omit<CardData, 'index'>[] = shuffleArray([
+    ...potentialContent
+  ])
+    .slice(0, count / 2)
+    .map((contentEl, id) => ({ image: contentEl, id }));
   return shuffleArray([...shuffled, ...shuffled]);
 }
 
 export type CurrentRotatedCards = {
-  first?: CardData['id'];
-  second?: CardData['id'];
+  first?: CardData;
+  second?: CardData;
 };
 
 export default function Game() {
@@ -75,11 +76,11 @@ export default function Game() {
 
   function onCardClick(card: CardData) {
     if (currentRotatedCards.first) {
-      setCurrentRotatedCards(prev => ({ ...prev, second: card.id }));
+      setCurrentRotatedCards(prev => ({ ...prev, second: card }));
+      setCurrentMoveCount(prev => prev + 1);
       return;
     }
-    setCurrentRotatedCards(prev => ({ ...prev, first: card.id }));
-    // работает, получается
+    setCurrentRotatedCards(prev => ({ ...prev, first: card }));
   }
 
   function win() {}
@@ -91,6 +92,7 @@ export default function Game() {
   // function lose() {
   //   // кажется lose пока не бывает :)
   // }
+
   return (
     <GameContainer>
       <ButtonsBlock

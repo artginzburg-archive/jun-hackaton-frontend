@@ -22,25 +22,21 @@ export default function Board({
           '--boardSize': boardSize
         }}
       >
-        {cards.map(card => (
+        {cards.map((card, index) => (
           <Card
-            key={card.id}
+            key={index}
             data={card}
             rotated={
-              currentRotatedCards?.first === card.id ||
-              currentRotatedCards?.second === card.id
+              currentRotatedCards.first?.index === card.index ||
+              currentRotatedCards.second?.index === card.index
             }
             success={
-              currentRotatedCards.first &&
-              currentRotatedCards.first === currentRotatedCards.second
-                ? true
-                : false
+              currentRotatedCards.first !== undefined &&
+              currentRotatedCards.first.id === currentRotatedCards.second?.id
             }
             error={
-              currentRotatedCards.first &&
-              currentRotatedCards.first !== currentRotatedCards.second
-                ? true
-                : false
+              currentRotatedCards.first !== undefined &&
+              currentRotatedCards.first.id !== currentRotatedCards.second?.id
             }
             onClick={onCardClick}
           />
