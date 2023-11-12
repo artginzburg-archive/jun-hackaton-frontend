@@ -17,7 +17,6 @@ export const CardBack = styled.div`
   color: white;
   border-radius: 20%;
   transition: 0.3s;
-  border: 1px solid grey;
-  border-radius: 20%;
-  border: 1px solid grey;
+  border-radius: 5%;
+  //border: 1px solid grey;
 `;

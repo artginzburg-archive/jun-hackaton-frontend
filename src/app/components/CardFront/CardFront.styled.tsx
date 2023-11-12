@@ -16,8 +16,6 @@ export const CardFront = styled.div`
   color: white;
   border-radius: 20%;
   transition: 0.3s;
-  border: 1px solid grey;
   transform: rotateY(0deg);
-  border-radius: 20%;
-  border: 1px solid grey;
+  border-radius: 5%;
 `;
